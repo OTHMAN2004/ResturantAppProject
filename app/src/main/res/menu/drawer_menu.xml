@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item android:title="@string/main">
+        <menu>
+            <item
+                android:id="@+id/nav_home"
+                android:icon="@android:drawable/ic_menu_compass"
+                android:title="@string/title_home" />
+
+            <item
+                android:id="@+id/nav_cart"
+                android:icon="@android:drawable/ic_menu_agenda"
+                android:title="@string/title_cart" />
+
+            <item
+                android:id="@+id/nav_orders"
+                android:icon="@android:drawable/ic_menu_recent_history"
+                android:title="@string/title_orders" />
+        </menu>
+    </item>
+
+    <item android:title="@string/menu_account">
+        <menu>
+            <item
+                android:id="@+id/nav_profile"
+                android:icon="@android:drawable/ic_menu_myplaces"
+                android:title="@string/title_profile" />
+
+            <item
+                android:id="@+id/nav_language"
+                android:icon="@android:drawable/ic_menu_preferences"
+                android:title="@string/title_language" />
+
+            <item
+                android:id="@+id/nav_theme"
+                android:icon="@android:drawable/ic_menu_preferences"
+                android:title="@string/title_theme" />
+
+            <item
+                android:id="@+id/nav_auth"
+                android:icon="@android:drawable/ic_lock_power_off"
+                android:title="@string/login" />
+        </menu>
+    </item>
+
+</menu>

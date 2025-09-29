@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">Restaurant App</string>
+
+    <!-- Navigation -->
+    <string name="menu_account">Account</string>
+    <string name="title_home">Home</string>
+    <string name="title_cart">Cart</string>
+    <string name="title_orders">Orders</string>
+    <string name="title_profile">Profile</string>
+    <string name="title_language">Language</string>
+    <string name="title_theme">Theme</string>
+    <string name="title_login">login</string>
+    <string name="title_logout">Logout</string>
+
+    <!-- Menu Categories -->
+    <string name="category_starters">Starters</string>
+    <string name="category_main_course">Main Course</string>
+    <string name="category_desserts">Desserts</string>
+    <string name="category_drinks">Drinks</string>
+
+    <!-- Buttons -->
+    <string name="button_add">Add</string>
+    <string name="button_login">Login</string>
+    <string name="button_register">Register</string>
+    <string name="button_save">Save</string>
+    <string name="button_logout">Logout</string>
+    <string name="button_place_order">Place Order</string>
+    <string name="button_search">Search</string>
+    <string name="button_remove">Remove</string>
+
+    <!-- Hints -->
+    <string name="hint_username">Username</string>
+    <string name="hint_email">Email</string>
+    <string name="hint_password">Password</string>
+    <string name="hint_phone">Phone</string>
+    <string name="hint_address">Address</string>
+    <string name="hint_search">Search for dishes...</string>
+
+    <!-- Messages -->
+    <string name="msg_login_success">Login successful</string>
+    <string name="msg_register_success">Registration successful!</string>
+    <string name="msg_add_to_cart">Added to cart</string>
+    <string name="msg_order_placed">Order placed successfully!</string>
+    <string name="msg_logout_confirm">Are you sure you want to logout?</string>
+    <string name="msg_empty_cart">Your cart is empty!</string>
+    <string name="msg_please_login">Please login first</string>
+    <string name="msg_fill_fields">Please fill all fields</string>
+
+    <!-- Profile -->
+    <string name="profile_title">Your Profile</string>
+    <string name="profile_image">Profile Image</string>
+
+    <!-- Orders -->
+    <string name="orders_title">Your Orders</string>
+    <string name="order_id">Order #</string>
+    <string name="order_date">Order Date</string>
+    <string name="order_total">Total</string>
+    <string name="order_status">Status</string>
+
+    <!-- Status -->
+    <string name="status_pending">Pending</string>
+    <string name="status_confirmed">Confirmed</string>
+    <string name="status_delivered">Delivered</string>
+
+    <!-- Search -->
+    <string name="search_hint">Search for dishes...</string>
+
+    <!-- Categories -->
+    <string name="starters">Starters</string>
+    <string name="main_course">Main Course</string>
+    <string name="desserts">Desserts</string>
+    <string name="drinks">Drinks</string>
+    <string name="welcome_to_my_restaurant_we_are_here_to_make_cooking_fun_again">Welcome to My Restaurant!! We are here to make Cooking Fun Again!!</string>
+    <string name="total_0_00">Total: $0.00</string>
+    <string name="loading_orders">Loading orders...</string>
+    <string name="item_name">Item Name</string>
+    <string name="dish_name">Dish Name</string>
+    <string name="next">Next</string>
+    <string name="yes">yes</string>
+    <string name="no">no</string>
+    <string name="logout">logout</string>
+    <string name="logout_confirm">logout_confirm</string>
+    <string name="login">login</string>
+    <string name="delete_item_from_cart">Are you sure to delete it?</string>
+    <string name="cancel">cancel</string>
+    <string name="username">Username</string>
+    <string name="orders">Orders</string>
+    <string name="profileNav">Profile</string>
+    <string name="main">Main</string>
+
+
+</resources>
