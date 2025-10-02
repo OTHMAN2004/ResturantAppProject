@@ -1,7 +1,12 @@
 package com.example.lasttryprojectactivity.Fragment;
 
+import android.Manifest;
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
+import android.os.Build;
 import android.os.Bundle;
 
+import androidx.annotation.RequiresPermission;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -11,6 +16,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
+import androidx.core.app.NotificationCompat;
+import androidx.core.app.NotificationManagerCompat;
+
+import com.example.lasttryprojectactivity.Activity.MainActivity;
 import com.example.lasttryprojectactivity.Adapters.CartAdapter;
 import com.example.lasttryprojectactivity.Class.CartItem;
 import com.example.lasttryprojectactivity.R;
@@ -32,6 +41,8 @@ public class CartFragment extends Fragment {
     private List<CartItem> cartItems = new ArrayList<>();
     private double totalAmount = 0.0;
 
+    private static final String CHANNEL_ID = "order_channel";
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -44,10 +55,12 @@ public class CartFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
 
         initViews();
+//        createNotificationChannel();
         setupViewModel();
         setupRecyclerView();
         setupObservers();
         setupClickListeners();
+        requestNotificationPermissionIfNeeded();
     }
 
     private void initViews() {
@@ -91,6 +104,7 @@ public class CartFragment extends Fragment {
                         cartAdapter.notifyDataSetChanged();
                         binding.totalAmountTextView.setText("Total: $0.00");
 
+                        showOrderNotification(totalAmount);
 
                         Toast.makeText(getContext(), "Order placed successfully!", Toast.LENGTH_LONG).show();
                     }
@@ -128,6 +142,48 @@ public class CartFragment extends Fragment {
                 })
                 .setNegativeButton("No", null)
                 .show();
+    }
+
+    //    private void createNotificationChannel() {
+//        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+//            String channelName = "Order Notifications";
+//            String channelDesc = "Notifications for placed orders";
+//
+//            NotificationChannel channel = new NotificationChannel(
+//                    CHANNEL_ID,
+//                    channelName,
+//                    NotificationManager.IMPORTANCE_DEFAULT
+//            );
+//            channel.setDescription(channelDesc);
+//
+//            NotificationManager manager = requireContext().getSystemService(NotificationManager.class);
+//            if (manager != null) {
+//                manager.createNotificationChannel(channel);
+//            }
+//        }
+//    }
+    private void requestNotificationPermissionIfNeeded() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) { // Android 13+
+            if (requireContext().checkSelfPermission(Manifest.permission.POST_NOTIFICATIONS)
+                    != android.content.pm.PackageManager.PERMISSION_GRANTED) {
+
+                requestPermissions(new String[]{Manifest.permission.POST_NOTIFICATIONS}, 1001);
+            }
+        }
+    }
+
+
+    @RequiresPermission(Manifest.permission.POST_NOTIFICATIONS)
+    private void showOrderNotification(double amount) {
+        NotificationCompat.Builder builder = new NotificationCompat.Builder(requireContext(), CHANNEL_ID)
+                .setSmallIcon(R.drawable.ic_shopping_cart)
+                .setContentTitle("تم الطلب بنجاح ")
+                .setContentText("طلبك بقيمة $" + String.format("%.2f", amount) + " قيد المعالجة")
+                .setPriority(NotificationCompat.PRIORITY_DEFAULT)
+                .setAutoCancel(true);
+
+        NotificationManagerCompat notificationManager = NotificationManagerCompat.from(requireContext());
+        notificationManager.notify(1, builder.build());
     }
 
     @Override

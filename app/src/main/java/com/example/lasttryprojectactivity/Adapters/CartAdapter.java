@@ -91,7 +91,7 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.ViewHolder> {
 
                 binding.removeButton.setOnClickListener(v -> {
                     if (viewModel != null && cartItem != null) {
-                        // انفخ الـ Layout
+
                         LayoutInflater inflater = LayoutInflater.from(v.getContext());
                         View dialogView = inflater.inflate(R.layout.custom_delete_dialog, null);
 
@@ -99,14 +99,14 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.ViewHolder> {
                                 .setView(dialogView)
                                 .create();
 
-                        // مسك العناصر من الـ layout
+
                         Button btnCancel = dialogView.findViewById(R.id.btnCancel);
                         Button btnConfirm = dialogView.findViewById(R.id.btnConfirm);
 
                         btnCancel.setOnClickListener(view -> dialog.dismiss());
 
                         btnConfirm.setOnClickListener(view -> {
-                            // احذف العنصر
+
                             viewModel.removeFromCart(cartItem);
                             int position = getAdapterPosition();
                             if (position != RecyclerView.NO_POSITION && cartItems != null) {
@@ -119,6 +119,7 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.ViewHolder> {
                         dialog.show();
                     }
                 });
+
 
             }
         }

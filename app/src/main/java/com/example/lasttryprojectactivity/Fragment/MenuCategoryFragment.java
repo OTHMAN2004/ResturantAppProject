@@ -112,7 +112,6 @@ public class MenuCategoryFragment extends Fragment {
         });
     }
 
-    /** 🔎 فلترة القائمة */
     public void filterMenuItems(String query) {
         if (adapter == null) return;
 

@@ -1,16 +1,16 @@
 package com.example.lasttryprojectactivity.Activity;
 
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.os.Build;
 import android.os.Bundle;
 
-import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.app.AppCompatDelegate;
 import androidx.appcompat.widget.Toolbar;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
+import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
 
@@ -26,19 +26,20 @@ import com.example.lasttryprojectactivity.Utilities.LocaleHelper;
 import com.example.lasttryprojectactivity.databinding.ActivityMainBinding;
 
 public class MainActivity extends AppCompatActivity {
+
     private ActivityMainBinding binding;
     private DrawerLayout drawerLayout;
     private SessionManager sessionManager;
-
 
     private static final String PREFS_NAME = "ThemePrefs";
     private static final String THEME_KEY = "current_theme";
     private static final String LANG_PREFS = "LangPrefs";
     private static final String LANG_KEY = "current_lang";
-
+    private static final String CHANNEL_ID = "order_channel";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        createNotificationChannel();
 
         applySavedTheme();
         applySavedLanguage();
@@ -47,7 +48,6 @@ public class MainActivity extends AppCompatActivity {
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
         sessionManager = new SessionManager(this);
-
 
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -60,14 +60,12 @@ public class MainActivity extends AppCompatActivity {
         NavigationView navigationView = binding.navView;
         BottomNavigationView bottomNavigationView = binding.bottomNavigationView;
 
-
         if (savedInstanceState == null) {
             loadFragment(new HomeFragment());
             bottomNavigationView.setSelectedItemId(R.id.nav_home);
         }
 
         updateNavigationMenu();
-
 
         bottomNavigationView.setOnItemSelectedListener(item -> {
             Fragment selectedFragment = null;
@@ -94,7 +92,6 @@ public class MainActivity extends AppCompatActivity {
             }
             return false;
         });
-
 
         navigationView.setNavigationItemSelectedListener(item -> {
             int itemId = item.getItemId();
@@ -148,6 +145,22 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
+    private void createNotificationChannel() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            NotificationChannel channel = new NotificationChannel(
+                    CHANNEL_ID,
+                    "Order Notifications",
+                    NotificationManager.IMPORTANCE_DEFAULT
+            );
+            channel.setDescription("Channel for order notifications");
+
+            NotificationManager notificationManager = getSystemService(NotificationManager.class);
+            if (notificationManager != null) {
+                notificationManager.createNotificationChannel(channel);
+            }
+        }
+    }
+
     private void applySavedLanguage() {
         SharedPreferences prefs = getSharedPreferences(LANG_PREFS, MODE_PRIVATE);
         String lang = prefs.getString(LANG_KEY, "en"); // default English
@@ -178,7 +191,6 @@ public class MainActivity extends AppCompatActivity {
         SharedPreferences prefs = getSharedPreferences(LANG_PREFS, MODE_PRIVATE);
         prefs.edit().putString(LANG_KEY, lang).apply();
     }
-
 
     private void applySavedTheme() {
         SharedPreferences prefs = getSharedPreferences(PREFS_NAME, MODE_PRIVATE);
@@ -270,7 +282,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(android.view.MenuItem item) {
         if (item.getItemId() == android.R.id.home) {
-            drawerLayout.openDrawer(androidx.core.view.GravityCompat.START);
+            drawerLayout.openDrawer(GravityCompat.START);
             return true;
         }
         return super.onOptionsItemSelected(item);
@@ -280,9 +292,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
         updateNavigationMenu();
-
     }
-
 
     @Override
     protected void onDestroy() {
